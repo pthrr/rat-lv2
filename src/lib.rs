@@ -16,7 +16,7 @@ struct Ports {
 // LV2 uses URIs to identify types. This association is expressed via the `UriBound` trait,
 // which tells the framework that the type `Amp` is identified by the given URI. The usual
 // way to implement this trait is to use the `uri` attribute.
-#[uri("urn:rust-lv2-book:eg-amp-rs")]
+#[uri("https://github.com/RustAudio/rust-lv2/tree/master/docs/amp")]
 struct Amp;
 
 // The implementation of the `Plugin` trait, which turns `Amp` into a plugin.
