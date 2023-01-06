@@ -27,10 +27,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: bin-amd64-linux
-          path: |
-            target/release/rat_amd64.so
-            data/amp.ttl
-            data/manifest.ttl
+          path: ./target
+            # target/release/rat_amd64.so
+            # data/amp.ttl
+            # data/manifest.ttl
 
       - name: Release binary
         uses: softprops/action-gh-release@v1
