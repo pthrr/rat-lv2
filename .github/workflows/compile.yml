@@ -19,9 +19,9 @@ jobs:
 
       - name: Build binary
         run: |
-          cargo build --all --release --verbose --target x86_64-unknown-linux-gnu \
-          && strip target/release/librat.so \
-          && mv target/release/librat.so target/release/rat_amd64.so
+          cargo build --all --release --verbose --target x86_64-unknown-linux-gnu
+          # && strip target/release/librat.so \
+          # && mv target/release/librat.so target/release/rat_amd64.so
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
