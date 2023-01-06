@@ -3,7 +3,7 @@ on: [push]
 env:
   CARGO_TERM_COLOR: always
 jobs:
-  build:
+  compile:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: bin-amd64-linux
-          path: target
+          path: target/x86_64-unknown-linux-musl/release/rat_amd64.a
 
       - name: Release binary
         uses: softprops/action-gh-release@v1
