@@ -2,7 +2,6 @@ name: Compile Linux binary
 on: [push]
 env:
   CARGO_TERM_COLOR: always
-  BUILD_TARGET: 
   BINARY_NAME: rat
 jobs:
   build:
@@ -21,7 +20,7 @@ jobs:
 
       - name: Build binary
         run: |
-          cargo build --all --release \
+          cargo build --all --release --verbose --target x86_64-unknown-linux-musl \
           && strip target/x86_64-unknown-linux-musl/release/lib${BINARY_NAME}.a \
           && mv target/x86_64-unknown-linux-musl/release/lib${BINARY_NAME}.a target/x86_64-unknown-linux-musl/release/${BINARY_NAME}_amd64.a
 
