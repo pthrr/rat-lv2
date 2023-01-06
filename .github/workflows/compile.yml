@@ -6,9 +6,8 @@ jobs:
     steps:
       - name: Repository
         uses: actions/checkout@v1
-      - name: Toolchain
-        uses: ./.github/actions/rust-toolchain
       - name: Build
+        uses: ./.github/actions/rust-toolchain
         run: cargo build --all --release --target x86_64-unknown-linux-musl && strip target/release/rat && mv target/release/rat target/release/rat_amd64
       - name: Release
         uses: softprops/action-gh-release@v1
