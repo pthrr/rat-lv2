@@ -18,7 +18,8 @@ jobs:
           override: true
 
       - name: Build binary
-        run: cargo build --all --release \
+        run: |
+          cargo build --all --release \
           && strip target/${BUILD_TARGET}/release/lib${BINARY_NAME}.a \
           && mv target/${BUILD_TARGET}/release/lib${BINARY_NAME}.a target/${BUILD_TARGET}/release/${BINARY_NAME}_amd64.a
 
