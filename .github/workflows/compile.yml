@@ -2,7 +2,7 @@ name: Compile Linux binary
 on: [push]
 env:
   CARGO_TERM_COLOR: always
-  BUILD_TARGET: x86_64-unknown-linux-musl
+  BUILD_TARGET: 
   BINARY_NAME: rat
 jobs:
   build:
@@ -15,26 +15,26 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-          target: $BUILD_TARGET
+          target: x86_64-unknown-linux-musl
           default: true
           override: true
 
       - name: Build binary
         run: |
           cargo build --all --release \
-          && strip target/${BUILD_TARGET}/release/lib${BINARY_NAME}.a \
-          && mv target/${BUILD_TARGET}/release/lib${BINARY_NAME}.a target/${BUILD_TARGET}/release/${BINARY_NAME}_amd64.a
+          && strip target/x86_64-unknown-linux-musl/release/lib${BINARY_NAME}.a \
+          && mv target/x86_64-unknown-linux-musl/release/lib${BINARY_NAME}.a target/x86_64-unknown-linux-musl/release/${BINARY_NAME}_amd64.a
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
           name: bin-amd64-linux
-          path: target/${BUILD_TARGET}/release/${BINARY_NAME}_amd64.a
+          path: target/x86_64-unknown-linux-musl/release/${BINARY_NAME}_amd64.a
 
       - name: Release binary
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: target/${BUILD_TARGET}/release/${BINARY_NAME}_amd64.a
+          files: target/x86_64-unknown-linux-musl/release/${BINARY_NAME}_amd64.a
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
