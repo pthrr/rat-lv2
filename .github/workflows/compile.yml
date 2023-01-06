@@ -1,19 +1,28 @@
-name: compile
+name: Compile
 on: [push]
+env:
+  CARGO_TERM_COLOR: always
+  BUILD_TARGET: x86_64-unknown-linux-musl
+  BINARY_NAME: rat
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Repository
+      - name: Checkout repository
         uses: actions/checkout@v1
-      - name: Build
+      - name: Build binary
         uses: ./.github/actions/rust-toolchain
-        run: cargo build --all --release --target x86_64-unknown-linux-musl && strip target/release/rat && mv target/release/rat target/release/rat_amd64
-      - name: Release
+        with:
+          args: cargo build --all --release --target $BUILD_TARGET && strip target/release/${BINARY_NAME} && mv target/release/rat target/release/${BINARY_NAME}_amd64
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: bin-amd64-linux
+          path: target/release/${BINARY_NAME}_amd64
+      - name: Release binary
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: |
-            target/release/rat_amd64
+          files: target/release/${BINARY_NAME}_amd64
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
