@@ -13,7 +13,7 @@ jobs:
       - name: Build binary
         uses: ./.github/actions/rust-toolchain
         with:
-          args: cargo build --all --release --target $BUILD_TARGET && strip target/${BUILD_TARGET}/release/lib${BINARY_NAME}.a release/ && mv target/${BUILD_TARGET}/release/${BINARY_NAME}_amd64.a
+          args: cargo build --all --release --target $BUILD_TARGET && strip target/${BUILD_TARGET}/release/lib${BINARY_NAME}.a && mv target/${BUILD_TARGET}/release/${BINARY_NAME}_amd64.a
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
