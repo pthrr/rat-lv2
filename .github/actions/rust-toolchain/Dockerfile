@@ -1,6 +1,7 @@
 FROM rust:latest
 
 RUN apt-get update && apt-get install -y \
+  apt-utils \
   clang \
   && rm -rf /var/lib/apt/lists/*
 RUN rustup target add aarch64-unknown-linux-musl

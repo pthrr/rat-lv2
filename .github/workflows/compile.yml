@@ -13,16 +13,16 @@ jobs:
       - name: Build binary
         uses: ./.github/actions/rust-toolchain
         with:
-          args: cargo build --all --release --target $BUILD_TARGET && strip target/release/${BINARY_NAME} && mv target/release/rat target/release/${BINARY_NAME}_amd64
+          args: cargo build --all --release --target $BUILD_TARGET && strip target/${BUILD_TARGET}/release/lib${BINARY_NAME}.a release/ && mv target/${BUILD_TARGET}/release/${BINARY_NAME}_amd64.a
       - name: Archive artifacts
         uses: actions/upload-artifact@v3
         with:
           name: bin-amd64-linux
-          path: target/release/${BINARY_NAME}_amd64
+          path: target/${BUILD_TARGET}/release/${BINARY_NAME}_amd64.a
       - name: Release binary
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: target/release/${BINARY_NAME}_amd64
+          files: target/${BUILD_TARGET}/release/${BINARY_NAME}_amd64.a
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
